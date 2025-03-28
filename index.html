@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gagged Text Converter</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 2em;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #333;
+            border-radius: 10px;
+            font-size: 1.2em;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            color: white;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, #7873f5, #ff6ec4);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h2 class="fade-in">Gagged Text Converter</h2>
+    <textarea id="inputText" rows="4" placeholder="Type your text here..."></textarea>
+    <br>
+    <button onclick="convertSpeech()">Convert</button>
+    <h3 class="fade-in">Converted Text:</h3>
+    <textarea id="outputText" rows="4" readonly></textarea>
+
+    <script>
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        
+        function convertSpeech() {
+            let text = document.getElementById("inputText").value.toLowerCase();
+            text = text.replace(/[bpdtkg]/g, 'm');
+            text = text.replace(/[rl]/g, 'w'); 
+            text = text.replace(/v/g, 'f'); 
+            text = text.replace(/s/g, 'sh'); 
+            
+            text = text.split(' ').map(word => Math.random() > 0.6 ? word.charAt(0) + "-" + word : word).join(' ');
+            
+            let emoticons = [">~<", ">/////<", "", "", "", ""]; 
+            text += " " + getRandomElement(emoticons);
+            document.getElementById("outputText").value = text;
+        }
+    </script>
+</body>
+</html>
